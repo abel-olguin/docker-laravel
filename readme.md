@@ -4,7 +4,9 @@
 ### Instalación (Es necesario tener docker-compose instalado)
 
 * Solo copia el contenido de este repositorio en la raiz de tu proyecto de laravel
+* En él `.env` cambia el nombre del host de base de datos de **localhost** a **db**
 * Usa el comando `docker-compose up -d --build --remove-orphans` 
+
 
 Puedes hacer un archivo bash para que sea más sencillo:
 
