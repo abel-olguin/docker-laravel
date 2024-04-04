@@ -17,8 +17,16 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 RUN curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 RUN apt-get -y autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY php.ini /etc/php/8.3/cli/conf.d/99-app.ini
+COPY php.ini "$PHP_INI_DIR/99-app.ini"
 
-CMD composer install && php /var/www/html/artisan db:wipe && php /var/www/html/artisan migrate:refresh --seed && php /var/www/html/artisan key:generate && php /var/www/html/artisan storage:link && php-fpm
+#si quieres habilitar el cron
+
+#RUN apt-get update && apt-get install -y cron
+#RUN echo "* * * * * root php /var/www/html/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
+#RUN touch /var/log/cron.log
+
+CMD composer install && php /var/www/html/artisan db:wipe && php /var/www/html/artisan migrate:refresh --seed && \
+ php /var/www/html/artisan key:generate && rm -rf /var/www/html/public/storage && \
+ php /var/www/html/artisan storage:link && php-fpm
 
 EXPOSE 9000

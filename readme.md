@@ -5,6 +5,18 @@
 
 * Solo copia el contenido de este repositorio en la raiz de tu proyecto de laravel
 * En él `.env` cambia el nombre del host de base de datos de **localhost** a **db**
+* En el archivo `vite.config.js` debe quedar parecido a esto:
+```js
+export default defineConfig({
+    ...
+    server: {
+        hmr: {
+            host: 'localhost',
+        },
+    },
+})
+
+```
 * Usa el comando `docker-compose up -d --build --remove-orphans` 
 
 

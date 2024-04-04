@@ -14,7 +14,7 @@ services:
         links:
             - php:php
         volumes:
-            - ./:/var/www/html
+            - .:/var/www/html
             - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./docker/nginx/site.conf:/etc/nginx/conf.d/default.conf:rw
             - ./docker/logs/nginx:/var/logs/nginx:rw
@@ -51,13 +51,12 @@ services:
             timeout: 5s
         restart: unless-stopped
         tty: true
-
     php:
         build:
             context: ./docker/php
             dockerfile: Dockerfile
         volumes:
-            - ./:/var/www/html
+            - .:/var/www/html
         ports:
             - '${FORWARD_PHP_PORT:-9000}:9000'
         networks:
@@ -68,5 +67,21 @@ services:
         tty: true
         links:
             - db:db
+    node:
+        build:
+            context: ./docker/node
+            dockerfile: Dockerfile
+        volumes:
+            - .:/var/www/html
+            - /var/www/html/node_modules
+        ports:
+            - '5173:5173'
+        networks:
+            - web
+        restart: unless-stopped
+        tty: true
+        depends_on:
+            - php
+
 
 
