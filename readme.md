@@ -5,6 +5,8 @@
 
 * Solo copia el contenido de este repositorio en la raiz de tu proyecto de laravel
 * En él `.env` cambia el nombre del host de base de datos de **localhost** a **db**
+* En él `.env` asegurate de tener el host como localhost (sin puerto)
+* Si tienes archivo composer lock elimínalo o ve las instrucciones del archivo `node/php/Dockerfile`
 * En el archivo `vite.config.js` debe quedar parecido a esto:
 ```js
 export default defineConfig({

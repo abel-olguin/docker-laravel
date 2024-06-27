@@ -25,8 +25,14 @@ COPY php.ini "$PHP_INI_DIR/99-app.ini"
 #RUN echo "* * * * * root php /var/www/html/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
 #RUN touch /var/log/cron.log
 
+#si necesitas instalar supervisor
+#RUN apt-get update && apt-get install -y supervisor
+#COPY laravel-worker.conf "/etc/supervisor"
+
+# Si tienes archivo compser lock usa composer update en lugar de composer install
 CMD composer install && php /var/www/html/artisan db:wipe && php /var/www/html/artisan migrate:refresh --seed && \
  php /var/www/html/artisan key:generate && rm -rf /var/www/html/public/storage && \
+ # supervisord -s -c /etc/supervisor/laravel-worker.conf && \ #descomenta esto si usas supervisor
  php /var/www/html/artisan storage:link && php-fpm
 
 EXPOSE 9000
