@@ -7,6 +7,7 @@
 * En él `.env` cambia el nombre del host de base de datos de **localhost** a **db**
 * En él `.env` asegurate de tener el host como localhost (sin puerto)
 * Si tienes archivo composer lock elimínalo o ve las instrucciones del archivo `node/php/Dockerfile`
+* Si usas supervisor asegurate de ignorar los archivos pid en tu gitignore
 * En el archivo `vite.config.js` debe quedar parecido a esto:
 ```js
 export default defineConfig({
